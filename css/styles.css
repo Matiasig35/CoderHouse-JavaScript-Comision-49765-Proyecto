@@ -68,7 +68,11 @@ div.carrito span {
 }
 
 div.imagen {
-    font-size: 60px !important;
+    font-size: 20px !important;
+}
+
+.imgCard {
+    height:  100px;
 }
 
 div.imagen:hover {

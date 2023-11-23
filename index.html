@@ -4,24 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mate Justo</title>
-    <link rel="shortcut icon" href="imagenes/Mate Justo Plateado.png" type="image/png">
+    <link rel="shortcut icon" href="./imagenes/shopping-cart.png" type="image/png">
     <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="./js/productos.js"></script>
     <script defer src="./js/main.js"></script>
 </head>
 <body>
     <header>
         <div class="header">
+            <img id="logo" class="logo" src="./imagenes/shopping-cart.png" >
             <h1 id="titulo">MATE JUSTO</h1>
             <h2 id="slogan">¡COMPRA ONLINE Y RECIBE TU PRODUCTO DONDE QUIERAS!</h2>
             <div class="carrito">
                 <p>Carrito:<span id="productosEnCarrito"> </span></p>
             </div>
+            <input type="search" name="" id="inputBusqueda" placeholder="Ingresa el producto a buscar.">
         </div> 
     </header>
     <main>
         <div class="container" id="divcontenedor">
-
+        </div>
+        <div class="centrar-elementos">
+            <button class="button-finalizar" type="button">Finalizar</button>
         </div>
     </main>
     <footer>
