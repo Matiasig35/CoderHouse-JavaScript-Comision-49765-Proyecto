@@ -1,11 +1,11 @@
-//const URL = "js/productos.json"
+// Utilizo este URL para simular un repositorio en linea, pero lo hago de manera local
+const URL = "js/productos.json"
+const productos = []
 
 // Invoco localStorage para que nos devuelva el string de localStorage y lo convierto en estructura de datos manipulable por Js
 // O inicializo el arreglo carrito vacío
 const carrito = JSON.parse(localStorage.getItem("miCarrito")) || []
 
-
-//const productos = []
 // Enlazo elementos del HTML
 const contenedor = document.querySelector("div.container#divcontenedor")
 const btnCarrito = document.querySelector("img#logo")
@@ -75,18 +75,18 @@ function activarClickEnBotones() {
 }
 
 // Esta función toma un repositorio local y lo convierte en un array para que lo pueda procesar js
-// function obtenerProductos() {
-//   fetch(URL)
-//   .then((response)=> response.json())
-//   .then((data)=> productos.push(...data) )
-//   .then(()=> cargarProductos(productos) )
-//   .catch((error)=> contenedor.innerHTML = crearCardError())
-// }
+function obtenerProductos() {
+  fetch(URL)
+  .then((response)=> response.json())
+  .then((data)=> productos.push(...data) )
+  .then(()=> cargarProductos(productos) )
+  .catch((error)=> contenedor.innerHTML = crearCardError())
+}
 
-// obtenerProductos()
+obtenerProductos()
 
 // Llamo a la función para cargar los productos
-cargarProductos(productos)
+// cargarProductos(productos)
 
 // Direcciono a un nuevo HTML con la lista de productos seleccionados
 btnCarrito.addEventListener("click", ()=> {
