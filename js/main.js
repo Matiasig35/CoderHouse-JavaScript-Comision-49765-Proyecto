@@ -1,20 +1,24 @@
+//const URL = "js/productos.json"
+
+// Invoco localStorage para que nos devuelva el string de localStorage y lo convierto en estructura de datos manipulable por Js
+// O inicializo el arreglo carrito vacío
+const carrito = JSON.parse(localStorage.getItem("miCarrito")) || []
+
+
+//const productos = []
 // Enlazo elementos del HTML
 const contenedor = document.querySelector("div.container#divcontenedor")
 const btnCarrito = document.querySelector("img#logo")
 const inputBuscar = document.querySelector("input#inputBusqueda")
 const productosEnCarrito = document.querySelector("span#productosEnCarrito")
-const btnFinalizar = document.querySelector("button.button-finalizar")
 
-// Invoco localStorage para que nos devuelva el string de localStorage y lo convierto en estructura de datos manipulable por Js
-// O inicializo el arreglo carrito vacío
-const carrito = JSON.parse(localStorage.getItem("miCarrito")) || []
 
 // Función para mostrar las opciones disponibles en pantalla desestructurado
 function crearCardHTML({imagen, nombre, precio, id}) {      
   return `<div class="div-card">
               <div class="imagen"><img class="imgCard" src=./${imagen}></div>
               <div class="producto">${nombre}</div>
-              <div class="importe">$ ${precio}</div>
+              <div class="importe">${precio.toLocaleString("es-AR", {style: "currency", currency: "ARS"})}</div>
               <button id="${id}" class="add-to-cart">Agregar</button>
           </div>`
 }
@@ -37,10 +41,17 @@ function cargarProductos(arreglo) {
       arreglo.forEach((producto)=> contenedor.innerHTML += crearCardHTML(producto))
       // Llamo a función que me permite a traves de un evento, agregar un producto en la lista
       activarClickEnBotones()
-
-  } else {
-      contenedor.innerHTML = crearCardError()
   }
+}
+
+function mensajeToast(mensaje) {
+  Toastify({
+      text: mensaje,
+      duration: 1500,
+      style: {
+        background: "green",
+      }
+    }).showToast()
 }
 
 // Función para tomar el evento "click" de lo seleccionado y mostrar los resultados en tabla
@@ -55,20 +66,33 @@ function activarClickEnBotones() {
           const productoSeleccionado = productos.find((producto)=> producto.id === id)
           carrito.push(productoSeleccionado)
           localStorage.setItem("miCarrito", JSON.stringify(carrito))
-          
+          mensajeToast(`${productoSeleccionado.nombre} se agregó al carrito`)
+
           totalVenta += productoSeleccionado.precio;
           productosEnCarrito.innerText = (`El total por los productos seleccionados es: $ ${totalVenta}`)
       })
   })
 }
 
+// Esta función toma un repositorio local y lo convierte en un array para que lo pueda procesar js
+// function obtenerProductos() {
+//   fetch(URL)
+//   .then((response)=> response.json())
+//   .then((data)=> productos.push(...data) )
+//   .then(()=> cargarProductos(productos) )
+//   .catch((error)=> contenedor.innerHTML = crearCardError())
+// }
+
+// obtenerProductos()
+
 // Llamo a la función para cargar los productos
 cargarProductos(productos)
 
-// Muestro un alert con la lista de productos seleccionados
+// Direcciono a un nuevo HTML con la lista de productos seleccionados
 btnCarrito.addEventListener("click", ()=> {
-  carrito.length > 0 ? alert(`El carrito tiene los siguientes productos: ${JSON.stringify(carrito)}`)
-                     : alert("No hay productos" )
+  if (carrito.length > 0) {
+      location.href = "checkout.html"
+  }
 })
 
 // Muestro cuantos productos tiene el carrito con un .title
@@ -82,12 +106,6 @@ inputBuscar.addEventListener("search", ()=> {
   let textoAbuscar = inputBuscar.value.trim().toLowerCase()
   // Resultado es el nuevo array con los productos que cumplen lo que el usuraio escribió
   let resultado = productos.filter((producto)=> producto.nombre.toLowerCase().includes(textoAbuscar))
+  // Llamo a "cargarProductos" con este nuevo array, para que me muestre solo lo que busqué en el buscador
   cargarProductos(resultado)
-})
-
-// Reseteo el localStorage y cargo la página nuevamente
-btnFinalizar.addEventListener("click", ()=> {
-  alert("Muchas gracias por comprar con nosotros.")
-  localStorage.clear()
-  location.reload()
 })

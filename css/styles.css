@@ -1,6 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css");
+@import url("https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css");
+@import url("https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css");
+
 
 * {
     margin: 10px;
@@ -91,8 +94,6 @@ div.importe {
 
 button {
     font-size: 10px;
-    width: 100px;
-    padding: 0px !important;
 }
 
 button:hover {
@@ -132,4 +133,17 @@ button:active {
 
 .leyenda-intento {
     font-size: 20px;
+}
+
+.centrar-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+}
+
+.imagenEnTabla {
+    height:  50px;
 }
